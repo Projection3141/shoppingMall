@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <nav>
+    <a href="./wallet.html">지갑</a>
+    <a href="./products.html">상품</a>
+    <button onclick="logout()">로그아웃</button>
+  </nav>
+  
+  <h1>대시보드</h1>
+  <div id="userInfo"></div>
+
+  <script src="../js/utils.js"></script>
+  <script src="../../middleware/auth.js"></script>
+  <script>
+    checkAuth();
+    
+    async function loadUserInfo() {
+      const user = await apiRequest('/users/me');
+      document.getElementById('userInfo').innerHTML = `
+        <p>이름: ${user.username}</p>
+        <p>지갑 주소: ${user.wallet.address}</p>
+      `;
+    }
+    
+    loadUserInfo();
+  </script>
+</body>
+</html>
